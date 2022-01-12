@@ -16,9 +16,9 @@
       class="input-label"
       for="reason-for-ticket-input"
       >Reason for ticket submission
-      <span aria-hidden="true" class="red">*</span>
+      <span id="reason-for-ticket-input-warning" aria-hidden="true" class="red">*</span>
     </label>
-    <select id="reason-for-ticket-input" name="select" autofocus required>
+    <select id="reason-for-ticket-input" name="select" autofocus>
       <option></option>
       <% for (let item of ticketSubmissionChoices) { %>
       <option><%= item.title %></option>
@@ -32,9 +32,9 @@
       for="first-name-input"
       aria-label="first name required"
     >
-      First Name<span aria-hidden="true" class="red">*</span>
+      First Name <span id="first-name-input-warning" aria-hidden="true" class="red">*</span>
     </label>
-    <input id="first-name-input" type="text" required />
+    <input id="first-name-input" type="text" />
     <label
       id="last-name"
       name="last-name"
@@ -42,9 +42,9 @@
       for="last-name-input"
       aria-label="last name required"
     >
-      Last Name <span aria-hidden="true" class="red">*</span>
+      Last Name <span id="last-name-input-warning" aria-hidden="true" class="red">*</span>
     </label>
-    <input id="last-name-input" type="text" required />
+    <input id="last-name-input" type="text" />
 
     <div id="myDatepickerStartDate" class="datepicker">
       <div class="date">
@@ -55,14 +55,13 @@
           for="start-date-input"
           aria-label="start date required"
         >
-          Start Date <span aria-hidden="true" class="red">*</span>
+          Start Date <span id="start-date-input-warning" aria-hidden="true" class="red">*</span>
         </label>
         <input
           type="text"
           placeholder="mm/dd/yyyy"
           id="start-date-input"
           aria-autocomplete="none"
-          required
         />
         <button class="icon" aria-label="Choose Date">
           <span class="fa fa-calendar-alt fa-2x"></span>
@@ -265,14 +264,13 @@
           class="input-label"
           for="end-date-input"
         >
-          End Date <span aria-hidden="true" class="red">*</span>
+          End Date <span id="end-date-input-warning" aria-hidden="true" class="red">*</span>
         </label>
         <input
           type="text"
           placeholder="mm/dd/yyyy"
           id="end-date-input"
           aria-autocomplete="none"
-          required
         />
         <button class="icon" aria-label="Choose Date">
           <span class="fa fa-calendar-alt fa-2x"></span>

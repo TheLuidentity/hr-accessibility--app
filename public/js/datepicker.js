@@ -609,7 +609,10 @@ DatePicker.prototype.getDateForButtonLabel = function (year, month, day) {
 DatePicker.prototype.setMessage = function (str) {
 
   function setMessageDelayed () {
-    this.messageNode.textContent = str;
+    try {
+      this.messageNode.textContent = str;
+    } catch(e) {
+    }
   }
 
   if (str !== this.lastMessage) {

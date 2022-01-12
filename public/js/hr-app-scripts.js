@@ -1,4 +1,3 @@
-
 //from a medium article on making bootstrap dropdowns more accessible 
 $(document).on('shown.bs.dropdown', function (event) {
   var dropdown = $(event.target);
@@ -25,8 +24,93 @@ $(document).on('hidden.bs.dropdown', function (event) {
 
 
 function goToSuccessPage(event) {
-  window.location.href = '/submission-success';
-  event.preventDefault();
+  let alertNotifications = "";
+  //clear all warnings
+  document.getElementById('reason-for-ticket-input').classList.remove('invalid-input-border');
+  document.getElementById('reason-for-ticket-input-warning').innerHTML = "*";
+  document.getElementById('first-name-input').classList.remove('invalid-input-border');
+  document.getElementById('first-name-input-warning').innerHTML = "*";
+  document.getElementById('last-name-input').classList.remove('invalid-input-border');
+  document.getElementById('last-name-input-warning').innerHTML = "*";
+  document.getElementById('start-date-input').classList.remove('invalid-input-border');
+  document.getElementById('start-date-input-warning').innerHTML = "*";
+  document.getElementById('end-date-input').classList.remove('invalid-input-border');
+  document.getElementById('end-date-input-warning').innerHTML = "*";
+
+  //reason for ticket
+  if(document.getElementById('reason-for-ticket-input').value == ""){
+    alertNotifications += "Please select reason for ticket submission";
+    document.getElementById("reason-for-ticket-input").classList.add('invalid-input-border');
+    document.getElementById('reason-for-ticket-input-warning').innerHTML = "* <i>Reason cannot be blank</i>";
+  }
+
+  //check names
+  let firstNameStr = document.getElementById('first-name-input').value;
+  let lastNameStr = document.getElementById('last-name-input').value;
+  
+  if(!firstNameStr || firstNameStr.split(' ').join('').length == 0){
+    alertNotifications += "Please enter your first name";
+    document.getElementById("first-name-input").classList.add('invalid-input-border');
+    document.getElementById('first-name-input-warning').innerHTML = "* <i>First name cannot be blank</i>";
+  }
+  
+  if(!lastNameStr || lastNameStr.split(' ').join('').length == 0){
+    alertNotifications += "Please enter your last name";
+    document.getElementById("last-name-input").classList.add('invalid-input-border');
+    document.getElementById('last-name-input-warning').innerHTML = "* <i>Last name cannot be blank</i>";
+  }
+  
+  //check dates
+  let startDate = document.getElementById('start-date-input').value;
+  let endDate = document.getElementById('end-date-input').value;
+
+  //using strict mode in moment to validate 
+  if(!moment(startDate, 'MM/DD/YYYY', true).isValid()){
+    alertNotifications += "Start date needs to be in format DD/MM/YYYY";
+    document.getElementById("start-date-input").classList.add('invalid-input-border');
+    document.getElementById('start-date-input-warning').innerHTML = "* <i>Start date needs to be in format DD/MM/YYYY</i>";
+  }
+  if(!moment(endDate, 'MM/DD/YYYY', true).isValid()){
+    alertNotifications += "End date needs to be in format DD/MM/YYYY";
+    document.getElementById("end-date-input").classList.add('invalid-input-border');
+    document.getElementById('end-date-input-warning').innerHTML = "* <i>End date needs to be in format DD/MM/YYYY</i>";
+  }
+  //comparing will give warning but its fine since start and end date are both validated
+  if (moment(startDate) > moment(endDate) && moment(startDate, 'MM/DD/YYYY', true).isValid() && moment(startDate, 'MM/DD/YYYY', true).isValid()) {
+    alertNotifications += "End date is before start date";
+    document.getElementById("start-date-input").classList.add('invalid-input-border');
+    document.getElementById('start-date-input-warning').innerHTML = "* <i>End date before start date</i>";
+    document.getElementById("end-date-input").classList.add('invalid-input-border');
+    document.getElementById('end-date-input-warning').innerHTML = "* <i>End date before start date</i>";
+  }
+
+  //read out the validation errors for the visually impaired
+  screenReaderRead(alertNotifications);
+
+  if(alertNotifications.length > 0){
+    event.preventDefault();
+  }else if(alertNotifications.length == 0){
+    event.preventDefault();
+    window.location.href = '/submission-success';
+  }
+}
+
+//this solution can be improved without settimeouts 
+function screenReaderRead(text) {
+  let el = document.createElement("div");
+  let id = "randomId" + Date.now();
+  el.setAttribute("id", id);
+  el.setAttribute("aria-live", "assertive");
+  el.classList.add("sr-only");
+  document.body.appendChild(el);
+
+  window.setTimeout(function () {
+    document.getElementById(id).innerHTML = text;
+  }, 300);
+
+  window.setTimeout(function () {
+      document.body.removeChild(document.getElementById(id));
+  }, 3000);
 }
 
 const form = document.getElementById('ticket-submission-form');

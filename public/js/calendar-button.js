@@ -77,6 +77,22 @@ CalendarButtonInput.prototype.setFocus = function () {
 
 CalendarButtonInput.prototype.setDate = function (day) {
   this.inputNode.value = (day.getMonth() + 1) + '/' + day.getDate() + '/' + day.getFullYear();
+
+  let splittedString = [];
+
+  //since momentJS strict mode need 0s before a single digit month / day  
+  //and there's no method in moment to convert d/m/yyyy to dd/mm/yyyy we have to change it here
+  if(this.inputNode.value && this.inputNode.value.split(' ').join('').length > 0){
+    splittedString = this.inputNode.value.split('/');
+
+    if(splittedString[0].length == 1){
+      splittedString[0] = '0' + splittedString[0];
+    }
+    if(splittedString[1].length == 1){
+      splittedString[1] = '0' + splittedString[1];
+    }
+    this.inputNode.value = splittedString.join('/');
+  }
 };
 
 CalendarButtonInput.prototype.getDate = function () {

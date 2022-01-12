@@ -94,6 +94,10 @@
 }
 .red {
   color: red;
+  font-weight: 500;
+}
+.invalid-input-border {
+  border: 3px red solid;
 }
 
 #first-name-input {
