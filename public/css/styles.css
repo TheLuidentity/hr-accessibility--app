@@ -126,6 +126,16 @@
   width: 300px;
 }
 
+element.style {
+  display: block;
+  z-index: 2;
+}
+.datepicker .datepickerDialog {
+  margin-top: -220px !important;
+  margin-left: 350px;
+}
+
+
 /* submission success */
 
 .submission-success-container {
@@ -175,5 +185,8 @@
   }
   .main-page-body .fa-angle-right {
     display: none;
+  }
+  .datepicker .datepickerDialog {
+    margin-left: 0px;
   }
 }

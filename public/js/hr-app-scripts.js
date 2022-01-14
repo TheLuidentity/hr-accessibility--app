@@ -22,6 +22,16 @@ $(document).on('hidden.bs.dropdown', function (event) {
   dropdown.find('.dropdown-toggle').focus();
 });
 
+//for name input field only acceps letters
+function alphaNumeric(event) {
+  let keyCode = event.keyCode;
+
+  if((keyCode >= 65 && keyCode <= 90) || (keyCode >= 97 && keyCode <= 122)){
+    return true;
+  }else{
+    return false;
+  }
+}
 
 function goToSuccessPage(event) {
   let alertNotifications = "";
@@ -49,15 +59,41 @@ function goToSuccessPage(event) {
   let lastNameStr = document.getElementById('last-name-input').value;
   
   if(!firstNameStr || firstNameStr.split(' ').join('').length == 0){
-    alertNotifications += "Please enter your first name";
+    alertNotifications += "First name cannot be blank";
     document.getElementById("first-name-input").classList.add('invalid-input-border');
     document.getElementById('first-name-input-warning').innerHTML = "* <i>First name cannot be blank</i>";
+  }else if(/^\d+$/.test(firstNameStr)){
+    alertNotifications += "First name cannot be all numbers";
+    document.getElementById("first-name-input").classList.add('invalid-input-border');
+    document.getElementById('first-name-input-warning').innerHTML = "* <i>First name cannot be all numbers</i>";
+  }else if(/\d/.test(firstNameStr)){
+    //maybe this should not be a criteria since Elons daughter is named R2D2 or something
+    alertNotifications += "First name cannot contain numbers";
+    document.getElementById("first-name-input").classList.add('invalid-input-border');
+    document.getElementById('first-name-input-warning').innerHTML = "* <i>First name cannot contain numbers</i>";
+  }else if(/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(firstNameStr)){
+    alertNotifications += "First name cannot contain special characters";
+    document.getElementById("first-name-input").classList.add('invalid-input-border');
+    document.getElementById('first-name-input-warning').innerHTML = "* <i>First name cannot contain special characters</i>";
   }
   
   if(!lastNameStr || lastNameStr.split(' ').join('').length == 0){
-    alertNotifications += "Please enter your last name";
+    alertNotifications += "Last name cannot be blank";
     document.getElementById("last-name-input").classList.add('invalid-input-border');
     document.getElementById('last-name-input-warning').innerHTML = "* <i>Last name cannot be blank</i>";
+  }else if(/^\d+$/.test(lastNameStr)){
+    alertNotifications += "Last name cannot be all numbers";
+    document.getElementById("last-name-input").classList.add('invalid-input-border');
+    document.getElementById('last-name-input-warning').innerHTML = "* <i>Last name cannot be all numbers</i>";
+  }else if(/\d/.test(lastNameStr)){
+    //maybe this should not be a criteria since Elons daughter is named R2D2 or something
+    alertNotifications += "Last name cannot contain numbers";
+    document.getElementById("last-name-input").classList.add('invalid-input-border');
+    document.getElementById('last-name-input-warning').innerHTML = "* <i>Last name cannot contain numbers</i>";
+  }else if(/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(lastNameStr)){
+    alertNotifications += "Last name cannot contain special characters";
+    document.getElementById("last-name-input").classList.add('invalid-input-border');
+    document.getElementById('last-name-input-warning').innerHTML = "* <i>Last name cannot contain special characters</i>";
   }
   
   //check dates

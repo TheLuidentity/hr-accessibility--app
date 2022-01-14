@@ -34,7 +34,7 @@
     >
       First Name <span id="first-name-input-warning" aria-hidden="true" class="red">*</span>
     </label>
-    <input id="first-name-input" type="text" />
+    <input id="first-name-input" type="text" onkeypress="return alphaNumeric(event);" ondrop="return false;" onpaste="return false;"/>
     <label
       id="last-name"
       name="last-name"
@@ -44,7 +44,7 @@
     >
       Last Name <span id="last-name-input-warning" aria-hidden="true" class="red">*</span>
     </label>
-    <input id="last-name-input" type="text" />
+    <input id="last-name-input" type="text" onkeypress="return alphaNumeric(event);" ondrop="return false;" onpaste="return false;"/>
 
     <div id="myDatepickerStartDate" class="datepicker">
       <div class="date">
